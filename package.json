@@ -1,0 +1,19 @@
+{
+  "name": "axe-api-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --files --respawn --clear index.ts",
+    "dev-kit": "ts-node-dev --respawn --clear dev-kit.ts",
+    "test": "jest --runInBand",
+    "test:dev": "jest --watch"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-typescript": "^7.21.4",
+    "jest": "^29.5.0"
+  }
+}
