@@ -1,5 +1,37 @@
 # Axe API Client
 
+## Config
+
+```ts
+import api from "axe-api-client";
+
+api.setConfig({
+  baseURL: "https://bookstore.axe-api.com/api/v1",
+  headers: {},
+  params: {},
+});
+
+api.interceptors.addRequest((request) => {
+  return request;
+});
+
+api.interceptors.addResponse((response) => {
+  return response;
+});
+```
+
+## Methods
+
+- `paginate()`
+- `all()`
+- `first()`
+- `firstOrFail()`
+- `insert()`
+- `delete()`
+- `forceDelete()`
+- `update()`
+- `patch()`
+
 ### Insert
 
 ```js
@@ -24,98 +56,92 @@ const response = await api.update("users/1", {
 const response = await api.delete("users/1");
 ```
 
-### Get
-
-```js
-const response = await api.get("users/1");
-```
-
 ### Query
 
 ```js
 import api from "axe-api-client";
 
-const data = await api.query("users").fetch();
+const data = await api.resource("users").paginate();
 ```
 
 ### Fields
 
 ```js
 const response = await api
-  .query("users")
+  .resource("users")
   .fields("name", "surname", "email")
-  .fetch();
+  .paginate();
 ```
 
 ### Sorting
 
 ```js
 const response = await api
-  .query("users")
+  .resource("users")
   .fields("name", "surname", "email")
   .sort("name")
   .sort("surname", "DESC")
   .sort("email", "ASC")
-  .fetch();
+  .paginate();
 ```
 
 ### Limits
 
 ```js
-const response = await api.query("users").fetch({ page: 1, perPage: 25 });
+const response = await api.resource("users").paginate({ page: 1, perPage: 25 });
 ```
 
 ### First
 
 ```js
-const response = await api.query("users").first();
+const response = await api.resource("users").first();
 ```
 
 ### Where Conditions
 
 ```js
-const response = await api.query("users").where("age", 18).fetch();
+const response = await api.resource("users").where("age", 18).paginate();
 ```
 
 ```js
 const response = await api
-  .query("users")
+  .resource("users")
   .where("age", ">=", 18)
   .where("name", "Karl")
-  .fetch();
+  .paginate();
 ```
 
 ```js
 const response = await api
-  .query("users")
+  .resource("users")
   .where("age", ">=", 18)
   .orWhere("name", "Karl")
-  .fetch();
+  .paginate();
 ```
 
 ```js
 const response = await api
-  .query("users")
+  .resource("users")
   .where("age", ">=", 18)
   .andWhere("name", "Karl")
-  .fetch();
+  .paginate();
 ```
 
 ```js
 const response = await api
-  .query("users")
+  .resource("users")
   .where((query) => {
     query.where("name", "Karl").where("surname", "Popper");
   })
   .orWhere("age", ">=", 18)
-  .fetch();
+  .paginate();
 ```
 
 ```js
 const response = await api
-  .query("users")
+  .resource("users")
   .where("age", "IN", [18, 19, 20])
-  .fetch();
+  .paginate();
 ```
 
 > All the [operators](https://axe-api.com/basics/queries/index.html#operators) should be able to used.
@@ -124,9 +150,9 @@ const response = await api
 
 ```js
 const response = await api
-  .query("users")
+  .resource("users")
   .with("posts{comments{id|content}}")
-  .fetch();
+  .paginate();
 ```
 
 ### Quick where functions
