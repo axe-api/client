@@ -35,7 +35,7 @@ api.interceptors.addResponse((response) => {
 ### Insert
 
 ```js
-const response = await api.insert("users", {
+const response = await api.resource("users").insert({
   name: "Karl",
   surname: "Popper",
 });
@@ -44,7 +44,16 @@ const response = await api.insert("users", {
 ### Update
 
 ```js
-const response = await api.update("users/1", {
+const response = await api.resource("users").update({
+  name: "Karl",
+  surname: "Popper",
+});
+```
+
+### Patch
+
+```js
+const response = await api.resource("users").patch({
   name: "Karl",
   surname: "Popper",
 });
@@ -53,7 +62,7 @@ const response = await api.update("users/1", {
 ### Delete
 
 ```js
-const response = await api.delete("users/1");
+const response = await api.resource("users").delete();
 ```
 
 ### Query
