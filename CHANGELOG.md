@@ -1,5 +1,9 @@
 # Release Notes
 
+## [1.0.0 (2023-12-05)]
+
+The current release has been marked as stable.
+
 ## [0.1.1 (2023-12-03)]
 
 ### Fixes
