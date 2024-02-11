@@ -1,6 +1,9 @@
 import Resource from "./Resource";
 import { setConfig, addRequest, addResponse } from "./Config";
 
+export * from "./Interfaces";
+export * from "./Config";
+
 export default {
   setConfig,
 

@@ -16,7 +16,7 @@
     "test:dev": "jest --watch",
     "lint": "eslint --max-warnings=0 .",
     "lint:watch": "esw --watch --color",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "author": "",
   "license": "MIT",
