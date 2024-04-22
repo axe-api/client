@@ -1,5 +1,12 @@
 # Release Notes
 
+## [1.0.3 (2024-04-22)]
+
+### Fixes
+
+- Dependency updates.
+- Fixed bundling issues
+
 ## [1.0.2 (2024-02-11)]
 
 ### Fixes
