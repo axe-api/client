@@ -1,5 +1,5 @@
 import { getConfig } from "../src/Config";
-import api from "../src/index";
+import * as api from "../src/index";
 
 const BASE_CONFIG = {
   baseURL: "https://axe-api.com/api/v1", // NOSONAR

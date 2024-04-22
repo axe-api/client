@@ -1,6 +1,8 @@
 import Resource from "./Resource";
 import { addRequest, addResponse } from "./Config";
 
+export * from "./Config";
+
 export const interceptors = {
   addRequest,
   addResponse,
