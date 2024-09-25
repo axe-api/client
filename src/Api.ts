@@ -1,7 +1,5 @@
-import Resource from "./Resource";
-import { addRequest, addResponse } from "./Config";
-
-export * from "./Config";
+import { Resource } from "./Resource";
+import { addRequest, addResponse, setConfig, getConfig } from "./Config";
 
 export const interceptors = {
   addRequest,
@@ -26,3 +24,11 @@ export const find = async (url: string) => {
  * @returns IQueryable
  */
 export const resource = (url: string) => new Resource(url);
+
+export const api = {
+  find,
+  resource,
+  setConfig,
+  getConfig,
+  interceptors,
+};

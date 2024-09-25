@@ -18,7 +18,7 @@ import {
   SortType,
 } from "./Types";
 
-class Resource implements IQueryable {
+export class Resource implements IQueryable {
   private url: string;
   private config: IInternalConfig;
   private params: URLSearchParams;
@@ -652,5 +652,3 @@ class Resource implements IQueryable {
     };
   }
 }
-
-export default Resource;

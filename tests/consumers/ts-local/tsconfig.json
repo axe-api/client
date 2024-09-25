@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "resolveJsonModule": true
+  },
+  "include": ["index.ts"],
+  "exclude": ["node_modules"]
+}

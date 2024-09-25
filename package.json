@@ -21,6 +21,7 @@
     "build": "rm -rf ./dist && microbundle",
     "test": "jest --runInBand",
     "test:dev": "jest --watch",
+    "test:consumer": "sh scripts/consumer-test.sh",
     "lint": "eslint --max-warnings=0 .",
     "lint:watch": "esw --watch --color",
     "prepare": "husky"
