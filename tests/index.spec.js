@@ -1,5 +1,4 @@
-import { getConfig } from "../src/Config";
-import * as api from "../src/index";
+import { api } from "../index";
 
 const BASE_CONFIG = {
   baseURL: "https://axe-api.com/api/v1", // NOSONAR
@@ -28,7 +27,7 @@ describe("axe-api-client", () => {
   });
 
   test("setConfig()", () => {
-    const config = getConfig();
+    const config = api.getConfig();
     expect(config.baseURL).toBe(BASE_CONFIG.baseURL);
     expect(config.headers["x-api-request"]).toBe(100);
     expect(config.params.requestTime).toBe("20231021");
