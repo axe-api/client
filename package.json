@@ -1,6 +1,6 @@
 {
   "name": "axe-api-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "axe-api-client is a native JavaScript client for Axe API servers.",
   "type": "module",
   "source": "./index.ts",
