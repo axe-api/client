@@ -1,5 +1,11 @@
 # Release Notes
 
+## [2.0.0 (2024-09-25)]
+
+### Breaking change
+
+- It requires to import changes.
+
 ## [1.0.5 (2024-09-25)]
 
 ### Fixes
