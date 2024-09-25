@@ -1,4 +1,4 @@
-import Resource from "./Resource";
+import { Resource } from "./Resource";
 import { ConditionTypes, MethodType, QueryFunctionType } from "./Types";
 
 export interface IRequest {

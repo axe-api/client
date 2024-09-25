@@ -1,0 +1,15 @@
+{
+  "name": "tester",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "test": "rm -rf node_modules && rm -rf package-lock.json && npm install && ts-node index.ts"
+  },
+  "dependencies": {
+    "axe-api-client": "file:../../../"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
