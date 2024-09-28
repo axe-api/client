@@ -27,7 +27,7 @@
 
 You can send insert, update, delete, and fetch data from Axe API servers without pain. `axe-api-client` has advanced query support with the active record pattern.
 
-## Config
+## ⚙️ Config
 
 ```ts
 import { api, IRequest } from "axe-api-client";
@@ -47,7 +47,7 @@ api.interceptors.addResponse((response: Response) => {
 });
 ```
 
-## Insert
+## ➕ Insert
 
 ```js
 const response = await api.resource("users").insert({
@@ -56,7 +56,7 @@ const response = await api.resource("users").insert({
 });
 ```
 
-## Post
+## 📤 Post
 
 ```js
 const response = await api.resource("users").post({
@@ -65,7 +65,7 @@ const response = await api.resource("users").post({
 });
 ```
 
-## Update
+## 🔄 Update
 
 ```js
 const response = await api.resource("users").update({
@@ -74,7 +74,7 @@ const response = await api.resource("users").update({
 });
 ```
 
-## Patch
+## 🩹 Patch
 
 ```js
 const response = await api.resource("users").patch({
@@ -83,7 +83,7 @@ const response = await api.resource("users").patch({
 });
 ```
 
-## Put
+## ✏️ Put
 
 ```js
 const response = await api.resource("users").put({
@@ -92,13 +92,13 @@ const response = await api.resource("users").put({
 });
 ```
 
-## Delete
+## 🗑️ Delete
 
 ```js
 const response = await api.resource("users").delete();
 ```
 
-## Query
+## 🔍 Query
 
 ```js
 import { api } from "axe-api-client";
@@ -106,7 +106,7 @@ import { api } from "axe-api-client";
 const data = await api.resource("users").paginate();
 ```
 
-## Fields
+## 📝 Fields
 
 ```js
 const response = await api
@@ -115,7 +115,7 @@ const response = await api
   .paginate();
 ```
 
-## Sorting
+## 🧩 Sorting
 
 ```js
 const response = await api
@@ -127,19 +127,19 @@ const response = await api
   .paginate();
 ```
 
-## Limits
+## 🚦 Limits
 
 ```js
 const response = await api.resource("users").paginate({ page: 1, perPage: 25 });
 ```
 
-## First
+## ⏩ First
 
 ```js
 const response = await api.resource("users").first();
 ```
 
-## Where Conditions
+## ❓ Where Conditions
 
 ```js
 const response = await api.resource("users").where("age", 18).paginate();
@@ -188,7 +188,7 @@ const response = await api
 
 > All the [operators](https://axe-api.com/basics/queries/index.html#operators) should be able to used.
 
-## Related Data
+## 🔗 Related Data
 
 ```js
 const response = await api
@@ -197,7 +197,7 @@ const response = await api
   .paginate();
 ```
 
-## Quick where functions
+## ⚡ Quick where functions
 
 We can use the following query where functions:
 
@@ -211,6 +211,14 @@ We can use the following query where functions:
 - `whereNull("age")`
 - `whereNotNull("age")`
 
-## License
+## 👥 Contributors
+
+<a href="https://github.com/axe-api/client/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=axe-api/client" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
+
+## 📜 License
 
 [MIT License](LICENSE)
