@@ -264,4 +264,49 @@ describe("axe-api-client", () => {
     expect(request.method).toBe("GET");
     expect(response).toBe(mockResponse);
   });
+
+  test(`post()`, async () => {
+    global.fetch = mock(200, "RESULT");
+
+    const data = { name: "John Doe" };
+
+    const response = await api.resource("users").post(data);
+    expect(global.fetch.mock.calls.length).toBe(1);
+
+    const request = global.fetch.mock.calls[0][1];
+    expect(request.url).toBe("https://axe-api.com/api/v1/users");
+    expect(request.method).toBe("POST");
+    expect(JSON.parse(request.body).name).toBe(data.name);
+    expect(response).toBe("RESULT");
+  });
+
+  test(`put()`, async () => {
+    global.fetch = mock(200, "RESULT");
+
+    const data = { name: "John Doe" };
+
+    const response = await api.resource("users").put(data);
+    expect(global.fetch.mock.calls.length).toBe(1);
+
+    const request = global.fetch.mock.calls[0][1];
+    expect(request.url).toBe("https://axe-api.com/api/v1/users");
+    expect(request.method).toBe("PUT");
+    expect(JSON.parse(request.body).name).toBe(data.name);
+    expect(response).toBe("RESULT");
+  });
+
+  test(`patch()`, async () => {
+    global.fetch = mock(200, "RESULT");
+
+    const data = { name: "John Doe" };
+
+    const response = await api.resource("users").patch(data);
+    expect(global.fetch.mock.calls.length).toBe(1);
+
+    const request = global.fetch.mock.calls[0][1];
+    expect(request.url).toBe("https://axe-api.com/api/v1/users");
+    expect(request.method).toBe("PATCH");
+    expect(JSON.parse(request.body).name).toBe(data.name);
+    expect(response).toBe("RESULT");
+  });
 });

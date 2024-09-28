@@ -484,26 +484,6 @@ export class Resource implements IQueryable {
   }
 
   /**
-   * Patch the resource
-   *
-   * @param data object
-   * @returns object
-   */
-  async patch(data: object) {
-    return this.sendRequest("PATCH", data);
-  }
-
-  /**
-   * Delete the resource
-   *
-   * @param data object
-   * @returns null
-   */
-  async delete() {
-    this.sendRequest("DELETE");
-  }
-
-  /**
    * Paginate the resource
    *
    * @param query IPaginate
@@ -522,6 +502,45 @@ export class Resource implements IQueryable {
    */
   async get() {
     return this.sendRequest("GET");
+  }
+
+  /**
+   * Send a POSt request
+   *
+   * @param data FormBody
+   * @returns object
+   */
+  async post(data?: FormBody) {
+    return this.sendRequest("POST", data);
+  }
+
+  /**
+   * Send a PUT request
+   *
+   * @param data FormBody
+   * @returns object
+   */
+  async put(data?: FormBody) {
+    return this.sendRequest("PUT", data);
+  }
+
+  /**
+   * Send a PUT request
+   *
+   * @param data FormBody
+   * @returns object
+   */
+  async patch(data?: FormBody) {
+    return this.sendRequest("PATCH", data);
+  }
+
+  /**
+   * Send a DELETE request
+   *
+   * @returns null
+   */
+  async delete() {
+    return this.sendRequest("DELETE");
   }
 
   private async sendRequest(method: MethodType, data?: FormBody) {
