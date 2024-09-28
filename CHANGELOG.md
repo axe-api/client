@@ -1,5 +1,9 @@
 # Release Notes
 
+## [2.1.0 (2024-09-28)](https://github.com/axe-api/axe-api/compare/2.1.0...2.0.1)
+
+- Added missing requests to the Resource object
+
 ## [2.0.1 (2024-09-28)](https://github.com/axe-api/axe-api/compare/2.0.1...2.0.0)
 
 - Fixed bundling issues
