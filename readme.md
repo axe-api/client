@@ -56,6 +56,15 @@ const response = await api.resource("users").insert({
 });
 ```
 
+## Post
+
+```js
+const response = await api.resource("users").post({
+  name: "Karl",
+  surname: "Popper",
+});
+```
+
 ## Update
 
 ```js
@@ -69,6 +78,15 @@ const response = await api.resource("users").update({
 
 ```js
 const response = await api.resource("users").patch({
+  name: "Karl",
+  surname: "Popper",
+});
+```
+
+## Put
+
+```js
+const response = await api.resource("users").put({
   name: "Karl",
   surname: "Popper",
 });
