@@ -1,5 +1,9 @@
 # Release Notes
 
+## [3.0.0 (2024-XX-XX)](https://github.com/axe-api/axe-api/compare/3.0.0...x.x.x)
+
+- Added navite `RequestInit` type instead of `IRequest`
+
 ## [2.1.0 (2024-09-28)](https://github.com/axe-api/axe-api/compare/2.1.0...2.0.1)
 
 - Added missing requests to the Resource object
