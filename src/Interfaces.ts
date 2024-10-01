@@ -1,12 +1,5 @@
 import { Resource } from "./Resource";
-import { ConditionTypes, MethodType, QueryFunctionType } from "./Types";
-
-export interface IRequest {
-  url: string;
-  method: MethodType;
-  headers: Record<string, any>;
-  body: string | undefined;
-}
+import { ConditionTypes, QueryFunctionType } from "./Types";
 
 export interface IConfig {
   baseURL?: string;

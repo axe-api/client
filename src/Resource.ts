@@ -5,7 +5,6 @@ import {
   IPaginate,
   IPagination,
   IQueryable,
-  IRequest,
 } from "./Interfaces";
 import {
   ConditionTypes,
@@ -544,8 +543,7 @@ export class Resource implements IQueryable {
   }
 
   private async sendRequest(method: MethodType, data?: FormBody) {
-    let request: IRequest = {
-      url: this.toURL(),
+    let request: RequestInit = {
       method,
       headers: {
         "Content-Type": "application/json",
@@ -557,7 +555,7 @@ export class Resource implements IQueryable {
       request = interceptor(request);
     }
 
-    const response = await fetch(request.url, request);
+    const response = await fetch(this.toURL(), request);
 
     for (const interceptor of this.config.interceptors.responses) {
       interceptor(response);
