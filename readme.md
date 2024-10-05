@@ -30,7 +30,7 @@ You can send insert, update, delete, and fetch data from Axe API servers without
 ## ⚙️ Config
 
 ```ts
-import { api, IRequest } from "axe-api-client";
+import { api } from "axe-api-client";
 
 api.setConfig({
   baseURL: "https://bookstore.axe-api.com/api/v1",
@@ -38,7 +38,7 @@ api.setConfig({
   params: {},
 });
 
-api.interceptors.addRequest((request: IRequest) => {
+api.interceptors.addRequest((request: RequestInit) => {
   return request;
 });
 

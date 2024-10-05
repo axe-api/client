@@ -11,9 +11,12 @@ const BASE_CONFIG = {
 };
 
 const mock = (status, data) => {
-  return jest.fn(() => {
+  return jest.fn((url) => {
     return Promise.resolve({
       status,
+      mock: {
+        url,
+      },
       json: () => {
         return data;
       },
@@ -173,12 +176,15 @@ describe("axe-api-client", () => {
     });
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe("https://axe-api.com/api/v1/users"); // NOSONAR
+    expect(url).toBe("https://axe-api.com/api/v1/users"); // NOSONAR
     expect(request.method).toBe("POST");
     expect(request.headers["Content-Type"]).toBe("application/json");
     expect(request.body).toBe(`{"name":"Karl"}`);
-    expect(response.id).toBe(100);
+    const data = await response.json();
+    expect(response.status).toBe(200);
+    expect(data.id).toBe(100);
   });
 
   test(`update()`, async () => {
@@ -191,11 +197,13 @@ describe("axe-api-client", () => {
     });
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe("https://axe-api.com/api/v1/users/1");
+    expect(url).toBe("https://axe-api.com/api/v1/users/1");
     expect(request.method).toBe("PUT");
     expect(request.body).toBe(`{"name":"Karl"}`);
-    expect(response.id).toBe(100);
+    const data = await response.json();
+    expect(data.id).toBe(100);
   });
 
   test(`patch()`, async () => {
@@ -208,11 +216,13 @@ describe("axe-api-client", () => {
     });
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe("https://axe-api.com/api/v1/users/1");
+    expect(url).toBe("https://axe-api.com/api/v1/users/1");
     expect(request.method).toBe("PATCH");
     expect(request.body).toBe(`{"name":"Karl"}`);
-    expect(response.id).toBe(100);
+    const data = await response.json();
+    expect(data.id).toBe(100);
   });
 
   test(`delete()`, async () => {
@@ -221,11 +231,13 @@ describe("axe-api-client", () => {
     const response = await api.resource("users/1").delete();
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe("https://axe-api.com/api/v1/users/1");
+    expect(url).toBe("https://axe-api.com/api/v1/users/1");
     expect(request.method).toBe("DELETE");
     expect(request.body).toBe(undefined);
-    expect(response).toBe(undefined);
+    const json = await response.json();
+    expect(json).toBe(undefined);
   });
 
   test(`paginate()`, async () => {
@@ -237,12 +249,12 @@ describe("axe-api-client", () => {
       .paginate({ page: 10, perPage: 5 });
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe(
-      "https://axe-api.com/api/v1/users?page=10&per_page=5",
-    );
+    expect(url).toBe("https://axe-api.com/api/v1/users?page=10&per_page=5");
     expect(request.method).toBe("GET");
-    expect(response).toBe(mockResponse);
+    const json = await response.json();
+    expect(json).toBe(mockResponse);
   });
 
   test(`URL Tests`, async () => {
@@ -257,12 +269,14 @@ describe("axe-api-client", () => {
       .paginate();
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe(
+    expect(url).toBe(
       `https://axe-api.com/api/v1/users?page=1&per_page=10&fields=id&sort=id&q=%5B%7B%22id%22%3A1%7D%5D`,
     );
     expect(request.method).toBe("GET");
-    expect(response).toBe(mockResponse);
+    const json = await response.json();
+    expect(json).toBe(mockResponse);
   });
 
   test(`post()`, async () => {
@@ -273,11 +287,13 @@ describe("axe-api-client", () => {
     const response = await api.resource("users").post(data);
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe("https://axe-api.com/api/v1/users");
+    expect(url).toBe("https://axe-api.com/api/v1/users");
     expect(request.method).toBe("POST");
     expect(JSON.parse(request.body).name).toBe(data.name);
-    expect(response).toBe("RESULT");
+    const json = await response.json();
+    expect(json).toBe("RESULT");
   });
 
   test(`put()`, async () => {
@@ -288,11 +304,13 @@ describe("axe-api-client", () => {
     const response = await api.resource("users").put(data);
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe("https://axe-api.com/api/v1/users");
+    expect(url).toBe("https://axe-api.com/api/v1/users");
     expect(request.method).toBe("PUT");
     expect(JSON.parse(request.body).name).toBe(data.name);
-    expect(response).toBe("RESULT");
+    const json = await response.json();
+    expect(json).toBe("RESULT");
   });
 
   test(`patch()`, async () => {
@@ -303,10 +321,24 @@ describe("axe-api-client", () => {
     const response = await api.resource("users").patch(data);
     expect(global.fetch.mock.calls.length).toBe(1);
 
+    const url = global.fetch.mock.calls[0][0];
     const request = global.fetch.mock.calls[0][1];
-    expect(request.url).toBe("https://axe-api.com/api/v1/users");
+    expect(url).toBe("https://axe-api.com/api/v1/users");
     expect(request.method).toBe("PATCH");
     expect(JSON.parse(request.body).name).toBe(data.name);
-    expect(response).toBe("RESULT");
+    const json = await response.json();
+    expect(json).toBe("RESULT");
+  });
+
+  test(`searchParams()`, async () => {
+    global.fetch = mock(200, "RESULT");
+
+    const response = await api
+      .resource("users")
+      .searchParams({ myFlag: "true", addUsers: 1 })
+      .paginate();
+
+    expect(response.mock.url.includes("myFlag=true")).toBe(true);
+    expect(response.mock.url.includes("addUsers=1")).toBe(true);
   });
 });

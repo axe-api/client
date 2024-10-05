@@ -1,12 +1,10 @@
 import { Resource } from "./Resource";
-import { ConditionTypes, MethodType, QueryFunctionType } from "./Types";
-
-export interface IRequest {
-  url: string;
-  method: MethodType;
-  headers: Record<string, any>;
-  body: string | undefined;
-}
+import {
+  ConditionTypes,
+  QueryFunctionType,
+  RequestInterceptorType,
+  ResponseInterceptorType,
+} from "./Types";
 
 export interface IConfig {
   baseURL?: string;
@@ -20,8 +18,8 @@ export interface IInternalConfig extends IConfig {
 }
 
 export interface IInterceptors {
-  requests: any[];
-  responses: any[];
+  requests: RequestInterceptorType[];
+  responses: ResponseInterceptorType[];
 }
 
 export interface IPaginate {
