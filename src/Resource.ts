@@ -36,6 +36,20 @@ export class Resource implements IQueryable {
   }
 
   /**
+   * Add additonal URLSearchParams to the request URL
+   *
+   * @param searchParams Record<string, string>
+   * @returns IQueryable
+   */
+  searchParams(searchParams: Record<string, string>) {
+    for (const key in searchParams) {
+      this.params.append(key, searchParams[key]);
+    }
+
+    return this;
+  }
+
+  /**
    * Select the fields that will be fetched.
    *
    * Example: fields("id", "name", "surname")

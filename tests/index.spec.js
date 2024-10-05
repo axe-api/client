@@ -11,9 +11,12 @@ const BASE_CONFIG = {
 };
 
 const mock = (status, data) => {
-  return jest.fn(() => {
+  return jest.fn((url) => {
     return Promise.resolve({
       status,
+      mock: {
+        url,
+      },
       json: () => {
         return data;
       },
@@ -325,5 +328,17 @@ describe("axe-api-client", () => {
     expect(JSON.parse(request.body).name).toBe(data.name);
     const json = await response.json();
     expect(json).toBe("RESULT");
+  });
+
+  test(`searchParams()`, async () => {
+    global.fetch = mock(200, "RESULT");
+
+    const response = await api
+      .resource("users")
+      .searchParams({ myFlag: "true", addUsers: 1 })
+      .paginate();
+
+    expect(response.mock.url.includes("myFlag=true")).toBe(true);
+    expect(response.mock.url.includes("addUsers=1")).toBe(true);
   });
 });
