@@ -1,11 +1,6 @@
 import { getConfig } from "./Config";
-import { DEFINED_STATUS_CODES, SUFFIX_MAP } from "./Constants";
-import {
-  IInternalConfig,
-  IPaginate,
-  IPagination,
-  IQueryable,
-} from "./Interfaces";
+import { SUFFIX_MAP } from "./Constants";
+import { IInternalConfig, IPaginate, IQueryable } from "./Interfaces";
 import {
   ConditionTypes,
   FormBody,
@@ -488,7 +483,7 @@ export class Resource implements IQueryable {
    * @param query IPaginate
    * @returns object
    */
-  async paginate(query?: IPaginate): Promise<IPagination> {
+  async paginate(query?: IPaginate): Promise<Response> {
     this.params.append("page", query?.page?.toString() ?? "1");
     this.params.append("per_page", query?.perPage?.toString() ?? "10");
     return this.sendRequest("GET");
@@ -542,7 +537,10 @@ export class Resource implements IQueryable {
     return this.sendRequest("DELETE");
   }
 
-  private async sendRequest(method: MethodType, data?: FormBody) {
+  private async sendRequest(
+    method: MethodType,
+    data?: FormBody,
+  ): Promise<Response> {
     let request: RequestInit = {
       method,
       headers: {
@@ -555,17 +553,7 @@ export class Resource implements IQueryable {
       request = interceptor(request);
     }
 
-    const response = await fetch(this.toURL(), request);
-
-    for (const interceptor of this.config.interceptors.responses) {
-      interceptor(response);
-    }
-
-    if (DEFINED_STATUS_CODES.includes(response.status)) {
-      return response.json();
-    }
-
-    return response;
+    return await fetch(this.toURL(), request);
   }
 
   private toURL() {
