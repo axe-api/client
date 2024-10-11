@@ -8,7 +8,7 @@ export type QueryFunctionType = (query: IQueryable) => IQueryable;
 
 export type RequestInterceptorType = (request: RequestInit) => RequestInit;
 
-export type ResponseInterceptorType = (response: Response) => void;
+export type ResponseInterceptorType = (response: Response) => Response;
 
 export type LogicType = "$or" | "$and";
 

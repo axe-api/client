@@ -563,11 +563,20 @@ export class Resource implements IQueryable {
       body: data ? JSON.stringify(data) : undefined,
     };
 
+    // Calls the request interceptors
     for (const interceptor of this.config.interceptors.requests) {
       request = interceptor(request);
     }
 
-    return await fetch(this.toURL(), request);
+    // Send the request
+    let response = await fetch(this.toURL(), request);
+
+    // Calls the response interceptors
+    for (const interceptor of this.config.interceptors.responses) {
+      response = interceptor(response);
+    }
+
+    return response;
   }
 
   private toURL() {
