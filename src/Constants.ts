@@ -16,5 +16,3 @@ export const SUFFIX_MAP: Record<FullCoditionTypes, string> = {
   NULL: "",
   "NOT NULL": "$not",
 };
-
-export const DEFINED_STATUS_CODES = [200, 204, 400, 404];

@@ -1,12 +1,6 @@
 import { getConfig } from "./Config";
-import { DEFINED_STATUS_CODES, SUFFIX_MAP } from "./Constants";
-import {
-  IInternalConfig,
-  IPaginate,
-  IPagination,
-  IQueryable,
-  IRequest,
-} from "./Interfaces";
+import { SUFFIX_MAP } from "./Constants";
+import { IInternalConfig, IPaginate, IQueryable } from "./Interfaces";
 import {
   ConditionTypes,
   FormBody,
@@ -39,6 +33,20 @@ export class Resource implements IQueryable {
     this.queryPointers = [this.q];
     this.overrideLogic = undefined;
     this.withPath = undefined;
+  }
+
+  /**
+   * Add additonal URLSearchParams to the request URL
+   *
+   * @param searchParams Record<string, string>
+   * @returns IQueryable
+   */
+  searchParams(searchParams: Record<string, string>) {
+    for (const key in searchParams) {
+      this.params.append(key, searchParams[key]);
+    }
+
+    return this;
   }
 
   /**
@@ -489,7 +497,7 @@ export class Resource implements IQueryable {
    * @param query IPaginate
    * @returns object
    */
-  async paginate(query?: IPaginate): Promise<IPagination> {
+  async paginate(query?: IPaginate): Promise<Response> {
     this.params.append("page", query?.page?.toString() ?? "1");
     this.params.append("per_page", query?.perPage?.toString() ?? "10");
     return this.sendRequest("GET");
@@ -543,9 +551,11 @@ export class Resource implements IQueryable {
     return this.sendRequest("DELETE");
   }
 
-  private async sendRequest(method: MethodType, data?: FormBody) {
-    let request: IRequest = {
-      url: this.toURL(),
+  private async sendRequest(
+    method: MethodType,
+    data?: FormBody,
+  ): Promise<Response> {
+    let request: RequestInit = {
       method,
       headers: {
         "Content-Type": "application/json",
@@ -553,18 +563,17 @@ export class Resource implements IQueryable {
       body: data ? JSON.stringify(data) : undefined,
     };
 
+    // Calls the request interceptors
     for (const interceptor of this.config.interceptors.requests) {
       request = interceptor(request);
     }
 
-    const response = await fetch(request.url, request);
+    // Send the request
+    let response = await fetch(this.toURL(), request);
 
+    // Calls the response interceptors
     for (const interceptor of this.config.interceptors.responses) {
-      interceptor(response);
-    }
-
-    if (DEFINED_STATUS_CODES.includes(response.status)) {
-      return response.json();
+      response = interceptor(response);
     }
 
     return response;

@@ -1,4 +1,4 @@
-import { IQueryable, IRequest } from "./Interfaces";
+import { IQueryable } from "./Interfaces";
 
 export type FormBody = object | undefined;
 
@@ -6,9 +6,9 @@ export type QueryArray = object[];
 
 export type QueryFunctionType = (query: IQueryable) => IQueryable;
 
-export type RequestInterceptorType = (request: IRequest) => IRequest;
+export type RequestInterceptorType = (request: RequestInit) => RequestInit;
 
-export type ResponseInterceptorType = (response: Response) => void;
+export type ResponseInterceptorType = (response: Response) => Response;
 
 export type LogicType = "$or" | "$and";
 
